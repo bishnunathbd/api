@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>JSON</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON</title>
 </head>
 <body>
-   <h1>JSON</h1>
-   <h2>JavaScript Object Notation</h2>
+  <h1>JSON</h1>
+  <h2>JavaScript Object Notation</h2>
 
-   <script>
-      const user = {
-            id: 222, 
-            name: 'Sia',
-            lover: {
-               name: 'shaila',
-               favFood: 'Pizza'
-            },
-            friendsAge: [12, 45, 58],
-            friends: ['Rahim', 'Karim', 'Jamil']
-         };
-                // {"id":222,"name":"Sia"}
-      const userJSON = JSON.stringify(user);
-      console.log(userJSON);
-      
-      const userFromJSON = JSON.parse(userJSON);
-      console.log(userFromJSON);
-   </script>
+  <ul id="users-container">
+
+  </ul>
+
+  <script>
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(json => displayUser(json))
+
+    function displayUser(users) {
+      // console.log('users', users);
+      const userNames = users.map(user => user.username)
+      // console.log(userNames);
+      const ul = document.getElementById('users-container');
+      for (let i = 0; i < userNames.length; i++) {
+        const user = userNames[i];
+        const li = document.createElement('li');
+        li.innerText = user;
+        ul.appendChild(li);
+      }
+    }
+    // console.log(userNames);
+  </script>
 </body>
 </html>
